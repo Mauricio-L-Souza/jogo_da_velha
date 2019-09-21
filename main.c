@@ -176,6 +176,9 @@ int main()
                     newGame(&_players, table, _slots);
                     drawHUD(intToString(score_p1).value, intToString(score_p2).value);
                     count = 0;
+                }else{
+                    al_destroy_display(window);//Destroi a janela
+                    return 0;
                 }
             }else
                 if(displayGameOver(generateWinnerMsg(_player.name, 0))){
