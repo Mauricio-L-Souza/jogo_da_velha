@@ -38,7 +38,7 @@ typedef struct{
 void makeMove(ALLEGRO_BITMAP *_to_draw, float x, float y, SLOT _slot[], int index);
 void initPlayer(PLAYER *_player, char name, int is_player_one, int bolinha);
 void newGame(PLAYERS *_players, char table[], SLOT _slots[]);
-void drawHUD(char* score_p1, char* score_p2);
+void drawHUD(char* score_p1, char* score_p2, char *velha);
 void drawTable(int scr_height, int scr_width);
 void initSlots(SLOT _slots[]);
 void initResourcesPath();
@@ -48,6 +48,7 @@ int validateWinner(char *table);
 int isFullTable(SLOT _slots[]);
 PLAYER getCurrentPlayer(int count, PLAYERS *_players);
 //END FUNCTIONS
+
 //helpers
 void error_msg(char *text){
 	al_show_native_message_box(NULL,"ERRO",
@@ -110,7 +111,7 @@ int main()
 
     SLOT _slots[9];
 
-    int mouse_pos_x = 0, mouse_pos_y = 0, count = 0, score_p1 = 0, score_p2 = 0;
+    int mouse_pos_x = 0, mouse_pos_y = 0, count = 0, score_p1 = 0, score_p2 = 0, velhas = 0;
     int bestPlaceToDraw[9][2] = {{30, 212},
                                   {136,212},
                                   {240,212},
@@ -128,7 +129,7 @@ int main()
     window = al_create_display(SCR_WIDTH, SCR_HEIGHT);
 
     newGame(&_players, table, _slots);
-    drawHUD("0", "0");
+    drawHUD("0", "0", "0");
 
     queue = al_create_event_queue();// cria a fila de eventos
     if(!queue) {
@@ -174,7 +175,8 @@ int main()
                 if(displayGameOver(generateWinnerMsg(_player.name, 1))){
                     al_flush_event_queue(queue);
                     newGame(&_players, table, _slots);
-                    drawHUD(intToString(score_p1).value, intToString(score_p2).value);
+                    velhas++;
+                    drawHUD(intToString(score_p1).value, intToString(score_p2).value, intToString(velhas).value);
                     count = 0;
                 }else{
                     al_destroy_display(window);//Destroi a janela
@@ -191,7 +193,7 @@ int main()
                         score_p2++;
                     }
 
-                    drawHUD(intToString(score_p1).value, intToString(score_p2).value);
+                    drawHUD(intToString(score_p1).value, intToString(score_p2).value, intToString(velhas).value);
                     count = 0;
             }else{
                 al_destroy_display(window);//Destroi a janela
@@ -257,15 +259,17 @@ void drawTable(int scr_height, int scr_width)
     al_draw_line(0, value_line_pos_y + (106*2), scr_width, value_line_pos_y + (106*2), al_map_rgb(255, 255, 255), 2);
 }
 
-void drawHUD(char *score_p1, char *score_p2)
+void drawHUD(char *score_p1, char *score_p2, char *velha)
 {
     ALLEGRO_FONT *font = al_load_ttf_font("arial.ttf", 20, 0);
     al_draw_text(font, al_map_rgb(245, 245, 67), 20, 5, 0, "Player 1");
-    al_draw_text(font, al_map_rgb(245, 245, 67), 20, 50, 0, "SCORE");
-    al_draw_text(font, al_map_rgb(245, 245, 67), 40, 100, 0, score_p1);
-    al_draw_text(font, al_map_rgb(245, 245, 67), 210, 5, 0, "Player 2");
-    al_draw_text(font, al_map_rgb(245, 245, 67), 210, 50, 0, "SCORE");
-    al_draw_text(font, al_map_rgb(245, 245, 67), 230, 100, 0, score_p2);
+    al_draw_text(font, al_map_rgb(245, 245, 67), 20, 30, 0, "SCORE");
+    al_draw_text(font, al_map_rgb(245, 245, 67), 50, 55, 0, score_p1);
+    al_draw_text(font, al_map_rgb(245, 245, 67), 225, 5, 0, "Player 2");
+    al_draw_text(font, al_map_rgb(245, 245, 67), 225, 30, 0, "SCORE");
+    al_draw_text(font, al_map_rgb(245, 245, 67), 255, 55, 0, score_p2);
+    al_draw_text(font, al_map_rgb(245, 245, 67), 125, 30, 0, "VELHAS");
+    al_draw_text(font, al_map_rgb(245, 245, 67), 155, 55, 0, velha);
     al_draw_line(0, 155, 320, 155, al_map_rgb(0, 4, 255), 2);
 }
 
