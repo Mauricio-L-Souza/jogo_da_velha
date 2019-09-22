@@ -268,7 +268,6 @@ void drawHUD(char *score_p1, char *score_p2, char *velha)
     al_draw_text(font, al_map_rgb(245, 245, 67), 225, 5, 0, "Player 2");
     al_draw_text(font, al_map_rgb(245, 245, 67), 225, 30, 0, "SCORE");
     al_draw_text(font, al_map_rgb(245, 245, 67), 255, 55, 0, score_p2);
-    //al_draw_line(0, 79, 320, 79, al_map_rgb(0, 4, 255), 2);
     al_draw_text(font, al_map_rgb(245, 245, 67), 122, 85, 0, "VELHAS");
     al_draw_text(font, al_map_rgb(245, 245, 67), 152, 110, 0, velha);
     al_draw_line(0, 155, 320, 155, al_map_rgb(0, 4, 255), 2);
