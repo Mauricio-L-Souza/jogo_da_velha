@@ -21,3 +21,5 @@ int validateMove(SLOT _slots[], int x, int y); **Valida o movimento.**
 int validateWinner(char *table); **Valida o vencedor, retorna verdadeiro ou falso (1 ou 0).**
 
 int isFullTable(SLOT _slots[]); **Valida se o tabuleiro esta cheio, caso esteja é velha.**
+
+PLAYER getCurrentPlayer(int count, PLAYERS *_players);**Pega o player atual com base no contador, retorna um jogador (X ou O).**
