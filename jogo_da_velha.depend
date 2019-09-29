@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1569782377 source:c:\users\meu\desktop\jogo_da_velha\main.c
+1569782755 source:c:\users\meu\desktop\jogo_da_velha\main.c
 	<string.h>
 	<allegro5/path.h>
 	<allegro5/allegro.h>
