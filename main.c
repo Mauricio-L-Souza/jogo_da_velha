@@ -42,6 +42,7 @@ void drawHUD(char* score_p1, char* score_p2, char *velha);
 void drawTable(int scr_height, int scr_width);
 void initSlots(SLOT _slots[]);
 void initResourcesPath();
+void menu(ALLEGRO_DISPLAY *window, PLAYERS *_players);
 
 int validateMove(SLOT _slots[], int x, int y);
 int validateWinner(char *table);
@@ -127,19 +128,23 @@ int main()
     initALL();
 
     window = al_create_display(SCR_WIDTH, SCR_HEIGHT);
+    menu(window, &_players);
 
-    newGame(&_players, table, _slots);
-    drawHUD("0", "0", "0");
+    if(_players.x.name == 'X' || _players.o.name == 'O'){
+        newGame(&_players, table, _slots);
+        drawHUD("0", "0", "0");
 
-    queue = al_create_event_queue();// cria a fila de eventos
-    if(!queue) {
-        al_destroy_display(window);//Destroi a janela
-        return -1;
+        queue = al_create_event_queue();// cria a fila de eventos
+        if(!queue) {
+            al_destroy_display(window);//Destroi a janela
+            return -1;
+        }
+
+        al_register_event_source(queue, al_get_display_event_source(window));//faz com que escute um evento especifico
+        al_register_event_source(queue, al_get_mouse_event_source());
+    }else{
+        return 0;
     }
-
-    al_flip_display();// atualiza o display
-    al_register_event_source(queue, al_get_display_event_source(window));//faz com que escute um evento especifico
-    al_register_event_source(queue, al_get_mouse_event_source());
 
     while(1){
         al_flip_display();
@@ -187,11 +192,8 @@ int main()
                     al_flush_event_queue(queue);
                     newGame(&_players, table, _slots);
 
-                    if (_player.is_player_one){
-                        score_p1++;
-                    }else{
-                        score_p2++;
-                    }
+                    if (_player.is_player_one) score_p1++;
+                    else score_p2++;
 
                     drawHUD(intToString(score_p1).value, intToString(score_p2).value, intToString(velhas).value);
                     count = 0;
@@ -201,6 +203,71 @@ int main()
             }
         }
     }
+}
+void menu(ALLEGRO_DISPLAY *window, PLAYERS *_players)
+{
+    ALLEGRO_EVENT_QUEUE *queue;
+    ALLEGRO_BITMAP *btnQuit, *btnNew, *btnB, *btnX;
+
+    queue = al_create_event_queue();
+
+    al_register_event_source(queue, al_get_display_event_source(window));//faz com que escute um evento especifico
+    al_register_event_source(queue, al_get_mouse_event_source());
+
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+
+    al_draw_text(al_load_ttf_font("arial.ttf", 32, NULL), al_map_rgb(0,164,0), 60, 0, NULL, "Jogo da velha");
+    al_draw_text(al_load_ttf_font("arial.ttf", 25, NULL), al_map_rgb(164,0,4), 100, 80 , NULL, "Novo jogo");
+    al_draw_text(al_load_ttf_font("arial.ttf", 20, NULL), al_map_rgb(164,0,4), 10, 110 , NULL, "Escolha com qual voce quer jogar");
+    al_draw_bitmap(al_load_bitmap("quitBtn.png"), 50, 300, NULL);
+    al_draw_bitmap(al_load_bitmap("OBtn.png"), 180, 150, NULL);
+    al_draw_bitmap(al_load_bitmap("XBtn.png"), 50, 150, NULL);
+
+    while(1){
+        al_flip_display();
+        ALLEGRO_EVENT event;
+        al_wait_for_event(queue, &event);
+
+        if(event.type==ALLEGRO_EVENT_DISPLAY_CLOSE){
+            al_destroy_display(window);
+            break;
+        }
+        if(event.type == ALLEGRO_EVENT_MOUSE_AXES){
+            int x = event.mouse.x, y = event.mouse.y;
+            if(x>= 50&& x<=130 && y>=150 && y<=230){
+                al_draw_bitmap(al_load_bitmap("_selected_XBtn.png"), 50, 150, NULL);
+            }
+            else if(x>=180 && x<=260 && y>=150 && y<=230){
+                al_draw_bitmap(al_load_bitmap("_selected_OBtn.png"), 180, 150, NULL);
+            }
+            else if(x>=50 && x<=190 && y>=300 && y<=363){
+                al_draw_bitmap(al_load_bitmap("_selected_quitBtn.png"), 50, 300, NULL);
+            }
+            else{
+                al_draw_bitmap(al_load_bitmap("quitBtn.png"), 50, 300, NULL);
+                al_draw_bitmap(al_load_bitmap("OBtn.png"), 180, 150, NULL);
+                al_draw_bitmap(al_load_bitmap("XBtn.png"), 50, 150, NULL);
+            }
+        }
+        if(event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
+            int x = event.mouse.x, y = event.mouse.y;
+            if(x>= 50&& x<=130 && y>=150 && y<=230){
+                initPlayer(&_players->x, 'X', 1, 0);
+                initPlayer(&_players->o, 'O', 0, 1);
+                break;
+            }
+            else if(x>=180 && x<=260 && y>=150 && y<=230){
+                initPlayer(&_players->x, 'X', 0, 0);
+                initPlayer(&_players->o, 'O', 1, 1);
+                break;
+            }
+            else if(x>=50 && x<=190 && y>=300 && y<=363){
+                al_destroy_display(window);
+                break;
+            }
+        }
+    }
+
 }
 
 void initResourcesPath()
@@ -337,9 +404,6 @@ void newGame(PLAYERS *_players, char table[], SLOT _slots[])
     al_clear_to_color(al_map_rgb(0, 0, 0));
     drawTable(SCR_HEIGHT, SCR_WIDTH);
     initSlots(_slots);
-
-    initPlayer(&_players->x, 'X', 1, 0);
-    initPlayer(&_players->o, 'O', 0, 1);
 }
 
 void makeMove(ALLEGRO_BITMAP *_to_draw, float x, float y, SLOT _slots[], int index)
