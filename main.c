@@ -220,7 +220,7 @@ void menu(ALLEGRO_DISPLAY *window, PLAYERS *_players)
     al_draw_text(al_load_ttf_font("arial.ttf", 32, NULL), al_map_rgb(0,164,0), 60, 0, NULL, "Jogo da velha");
     al_draw_text(al_load_ttf_font("arial.ttf", 25, NULL), al_map_rgb(164,0,4), 100, 80 , NULL, "Novo jogo");
     al_draw_text(al_load_ttf_font("arial.ttf", 20, NULL), al_map_rgb(164,0,4), 10, 110 , NULL, "Escolha com qual voce quer jogar");
-    al_draw_bitmap(al_load_bitmap("quitBtn.png"), 50, 300, NULL);
+    al_draw_bitmap(al_load_bitmap("quitBtn.png"), 90, 300, NULL);
     al_draw_bitmap(al_load_bitmap("OBtn.png"), 180, 150, NULL);
     al_draw_bitmap(al_load_bitmap("XBtn.png"), 50, 150, NULL);
 
@@ -241,11 +241,11 @@ void menu(ALLEGRO_DISPLAY *window, PLAYERS *_players)
             else if(x>=180 && x<=260 && y>=150 && y<=230){
                 al_draw_bitmap(al_load_bitmap("_selected_OBtn.png"), 180, 150, NULL);
             }
-            else if(x>=50 && x<=190 && y>=300 && y<=363){
-                al_draw_bitmap(al_load_bitmap("_selected_quitBtn.png"), 50, 300, NULL);
+            else if(x>=40 && x<=230 && y>=300 && y<=363){
+                al_draw_bitmap(al_load_bitmap("_selected_quitBtn.png"), 90, 300, NULL);
             }
             else{
-                al_draw_bitmap(al_load_bitmap("quitBtn.png"), 50, 300, NULL);
+                al_draw_bitmap(al_load_bitmap("quitBtn.png"), 90, 300, NULL);
                 al_draw_bitmap(al_load_bitmap("OBtn.png"), 180, 150, NULL);
                 al_draw_bitmap(al_load_bitmap("XBtn.png"), 50, 150, NULL);
             }
@@ -262,7 +262,7 @@ void menu(ALLEGRO_DISPLAY *window, PLAYERS *_players)
                 initPlayer(&_players->o, 'O', 1, 1);
                 break;
             }
-            else if(x>=50 && x<=190 && y>=300 && y<=363){
+            else if(x>=40 && x<=230 && y>=300 && y<=363){
                 al_destroy_display(window);
                 break;
             }
