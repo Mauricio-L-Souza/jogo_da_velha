@@ -1,8 +1,5 @@
 # jogo_da_velha
 
-## Tipos
-
-
 ## Funções necessárias
 
 void makeMove(ALLEGRO_BITMAP *_to_draw, float x, float y, SLOT _slot[], int index); **Executa a jogada do player.**
@@ -19,7 +16,7 @@ void initSlots(SLOT _slots[]); **inicia as posições como vazias e também o ta
 
 void initResourcesPath(); **Seta a pasta de recursos.**
 
-int validateMove(SLOT _slots[], int x, int y); **Valida o movimento, retorna a posição caso esteja vazio, ou -1 caso não esteja**
+int validateMove(SLOT _slots[], int x, int y); **Valida o movimento, retorna a posição caso esteja vazio, ou -1 caso não esteja.**
 
 int validateWinner(char *table); **Valida o vencedor, retorna verdadeiro ou falso (1 ou 0).**
 
