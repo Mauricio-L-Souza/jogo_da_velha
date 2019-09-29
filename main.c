@@ -142,6 +142,7 @@ int main()
 
         al_register_event_source(queue, al_get_display_event_source(window));//faz com que escute um evento especifico
         al_register_event_source(queue, al_get_mouse_event_source());
+        al_flush_event_queue(queue);
     }else{
         return 0;
     }
@@ -371,30 +372,46 @@ int isFullTable(SLOT _slots[])
 
 int validateWinner(char *table)
 {
-    if((table[0]=='X' && table[1]=='X' && table[2]=='X')||(table[0]=='O' && table[1]=='O' && table[2]=='O'))
+    if((table[0]=='X' && table[1]=='X' && table[2]=='X')||(table[0]=='O' && table[1]=='O' && table[2]=='O')){
+        al_draw_line(10, 240, 310, 240, al_map_rgb(188,0,2),3.5);
+        al_flip_display();
         return 1;
-    else
-        if((table[3]=='X' && table[4]=='X' && table[5]=='X')||(table[3]=='O' && table[4]=='O' && table[5]=='O'))
+    }else
+        if((table[3]=='X' && table[4]=='X' && table[5]=='X')||(table[3]=='O' && table[4]=='O' && table[5]=='O')){
+            al_draw_line(10, 340, 310, 340, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-    else
-        if((table[6]=='X' && table[7]=='X' && table[8]=='X')||(table[6]=='O' && table[7]=='O' && table[8]=='O'))
+    }else
+        if((table[6]=='X' && table[7]=='X' && table[8]=='X')||(table[6]=='O' && table[7]=='O' && table[8]=='O')){
+            al_draw_line(10, 440, 310, 440, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-    else
-        if((table[0]=='X' && table[3]=='X' && table[6]=='X')||(table[0]=='O' && table[3]=='O' && table[6]=='O'))
+    }else
+        if((table[0]=='X' && table[3]=='X' && table[6]=='X')||(table[0]=='O' && table[3]=='O' && table[6]=='O')){
+            al_draw_line(55, 206, 55, 470, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-    else
-        if((table[1]=='X' && table[4]=='X' && table[7]=='X')||(table[1]=='O' && table[4]=='O' && table[7]=='O'))
+    }else
+        if((table[1]=='X' && table[4]=='X' && table[7]=='X')||(table[1]=='O' && table[4]=='O' && table[7]=='O')){
+            al_draw_line(160, 206, 160, 470, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-    else
-        if((table[2]=='X' && table[5]=='X' && table[8]=='X')||(table[2]=='O' && table[5]=='O' && table[8]=='O'))
+    }else
+        if((table[2]=='X' && table[5]=='X' && table[8]=='X')||(table[2]=='O' && table[5]=='O' && table[8]=='O')){
+            al_draw_line(265, 206, 265, 470, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-    else
-        if((table[0]=='X' && table[4]=='X' && table[8]=='X')||(table[0]=='O' && table[4]=='O' && table[8]=='O'))
+    }else
+        if((table[0]=='X' && table[4]=='X' && table[8]=='X')||(table[0]=='O' && table[4]=='O' && table[8]=='O')){
+            al_draw_line(25, 206, 285, 470, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-    else
-        if((table[2]=='X' && table[4]=='X' && table[6]=='X')||(table[2]=='O' && table[4]=='O' && table[6]=='O'))
+    }else
+        if((table[2]=='X' && table[4]=='X' && table[6]=='X')||(table[2]=='O' && table[4]=='O' && table[6]=='O')){
+            al_draw_line(285, 206, 25, 470, al_map_rgb(188,0,2),3.5);
+            al_flip_display();
             return 1;
-
+        }
     return 0;
 }
 
