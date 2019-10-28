@@ -1,1 +1,10 @@
-bin/debug/jogo_da_velha.exe
+*.exe
+*.dll
+*.o
+*.a
+*.so
+*.bin
+
+*.cbp
+*.depend
+*.layout
