@@ -5,6 +5,8 @@
 *.so
 *.bin
 
+/bin
+/obj
 *.cbp
 *.depend
 *.layout
