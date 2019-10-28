@@ -25,8 +25,10 @@ int isFullTable(SLOT _slots[]); **Valida se o tabuleiro esta cheio, caso esteja 
 PLAYER getCurrentPlayer(int count, PLAYERS *_players);**Pega o player atual com base no contador, retorna um jogador (X ou O).**
 
 
-**A pasta de recursos deve estar no mesmo diretório onde está o executavel do jogo*
-Exemplo: \bin\debug
-				|__\resources
-				|__\allegro-{version-allegro}-monolith-mt.dll
-				|__\jogo_da_velha.exe
+**A pasta de recursos deve estar no mesmo diretório onde está o executavel do jogo*..
+Exemplo: \bin\debug..
+```
+				|__\resources..
+				|__\allegro-{version-allegro}-monolith-mt.dll..
+				|__\jogo_da_velha.exe..
+```
