@@ -27,8 +27,8 @@ PLAYER getCurrentPlayer(int count, PLAYERS *_players);**Pega o player atual com 
 
 **A pasta de recursos deve estar no mesmo diretório onde está o executavel do jogo*
 ```
-Exemplo: \bin\debug
-				|__\resources
-				|__\allegro-{version-allegro}-monolith-mt.dll
-				|__\jogo_da_velha.exe
+Exemplo: \bin\debug..
+		|__\resources
+		|__\allegro-{version-allegro}-monolith-mt.dll
+		|__\jogo_da_velha.exe
 ```
